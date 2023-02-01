@@ -42,7 +42,8 @@ export type SupportedRenderers =
   | 'aurelia'
   | 'html'
   | 'web-components'
-  | 'server';
+  | 'server'
+  | 'choo';
 
 export const SUPPORTED_RENDERERS: SupportedRenderers[] = [
   'react',
@@ -60,6 +61,7 @@ export const SUPPORTED_RENDERERS: SupportedRenderers[] = [
   'qwik',
   'rax',
   'aurelia',
+  'choo',
 ];
 
 export enum ProjectType {
@@ -90,6 +92,7 @@ export enum ProjectType {
   AURELIA = 'AURELIA',
   SERVER = 'SERVER',
   NX = 'NX',
+  CHOO = 'CHOO',
 }
 
 export enum CoreBuilder {
@@ -281,6 +284,13 @@ export const supportedTemplates: TemplateConfiguration[] = [
   {
     preset: ProjectType.AURELIA,
     dependencies: ['aurelia-bootstrapper'],
+    matcherFunction: ({ dependencies }) => {
+      return dependencies.every(Boolean);
+    },
+  },
+  {
+    preset: ProjectType.MITHRIL,
+    dependencies: ['choo'],
     matcherFunction: ({ dependencies }) => {
       return dependencies.every(Boolean);
     },
